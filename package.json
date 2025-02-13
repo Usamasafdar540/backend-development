@@ -1,0 +1,22 @@
+{
+  "name": "backend-series",
+  "version": "1.0.0",
+  "description": "This is backend series with relations ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Usamasafdar540/backend-development.git"
+  },
+  "keywords": [
+    "Test"
+  ],
+  "author": "Usama Safdar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Usamasafdar540/backend-development/issues"
+  },
+  "homepage": "https://github.com/Usamasafdar540/backend-development#readme"
+}
