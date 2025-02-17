@@ -68,7 +68,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     }
   );
 }),
-  (userSchema.methods.generateAccessToken = function () {
+  (userSchema.methods.generateRefreshToken = function () {
     jwt.sign(
       {
         _id: this._id,
@@ -83,3 +83,4 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     );
   });
 const User = mongoose.model("User", userSchema);
+export default User;
