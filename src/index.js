@@ -1,7 +1,7 @@
 import { app } from "./app.js";
 import dbConnect from "./db/db.js";
 import dotenv from "dotenv";
-
+import { connectCloudinary } from "./utils/cloudinary.js";
 dotenv.config({ path: "./env" });
 
 dbConnect()
@@ -13,3 +13,4 @@ dbConnect()
   .catch((error) => {
     console.error("MongoDB connection failed", error);
   });
+connectCloudinary();

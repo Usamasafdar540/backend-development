@@ -3,16 +3,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connectCloudinary = () => {
+export const connectCloudinary = () => {
   cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_SECRET_KEY,
   });
+  console.log("Api key is : ", process.env.CLOUDINARY_API_KEY);
   console.log("✅ Cloudinary Connected Successfully!");
 };
 
-const cloudinaryUploadImg = async (fileToUpload) => {
+export const cloudinaryUploadImg = async (fileToUpload) => {
   try {
     const result = await cloudinary.uploader.upload(fileToUpload, {
       resource_type: "auto",
@@ -29,7 +30,7 @@ const cloudinaryUploadImg = async (fileToUpload) => {
   }
 };
 
-const cloudinaryDeleteImg = async (fileToDelete) => {
+export const cloudinaryDeleteImg = async (fileToDelete) => {
   try {
     const result = await cloudinary.uploader.destroy(fileToDelete);
 
@@ -41,10 +42,4 @@ const cloudinaryDeleteImg = async (fileToDelete) => {
     console.error("❌ Cloudinary Deletion Error:", error);
     throw error;
   }
-};
-
-export default {
-  connectCloudinary,
-  cloudinaryUploadImg,
-  cloudinaryDeleteImg,
 };

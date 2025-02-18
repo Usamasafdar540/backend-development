@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+
 const userSchema = new mongoose.Schema(
   {
     userName: {
@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     avatar: {
-      type: String, //cloudinary UrL
+      type: String, // Cloudinary URL
       required: true,
     },
     coverImage: {
-      type: String, //cloudinary UrL
+      type: String, // Cloudinary URL
     },
     watchHistory: {
       type: Schema.Types.ObjectId,
@@ -45,42 +45,18 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-//pre definde hooks that runs just before saving the document
+
+// Predefined hook that runs before saving the document
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
+
+// Password verification method
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-(userSchema.methods.generateAccessToken = function () {
-  jwt.sign(
-    {
-      _id: this._id,
-      email: this.email,
-      userName: this.userName,
-      fullName: this.fullName,
-    },
-    process.env.JWT_SECRET_TOKEN,
-    {
-      exxpiresIn: process.env.JWT_EXPIRY,
-    }
-  );
-}),
-  (userSchema.methods.generateRefreshToken = function () {
-    jwt.sign(
-      {
-        _id: this._id,
-        email: this.email,
-        userName: this.userName,
-        fullName: this.fullName,
-      },
-      process.env.REFRESH_TOKEN,
-      {
-        exxpiresIn: process.env.REFRESH_TOKEN_EXPIRY,
-      }
-    );
-  });
+
 const User = mongoose.model("User", userSchema);
 export default User;
